@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("verifying tooling") {
             steps {
-                sh '''
+                bat '''
                     docker version
                     docker info
                     docker compose version
@@ -14,13 +14,13 @@ pipeline {
         }
         stage("Prune Docker Data") {
             steps {
-                sh 'docker system prune -a --volume -f'
+                bat 'docker system prune -a --volume -f'
             }
         }
         stage("Start Container") {
             steps {
-                sh 'docker-compose up -d --no-color --wait'
-                sh 'docker compose ps'
+                bat 'docker-compose up -d --no-color --wait'
+                bat 'docker compose ps'
             }
         }
     }
