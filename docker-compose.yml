@@ -2,18 +2,22 @@ version: '3'
 
 services:
   web:
-    build: ./web
+    build:
+      context: ./web  # Ensure the 'web' directory exists in the root of your repository
     ports:
       - "80:80"
     volumes:
-      - ./web:/usr/share/nginx/html
+      - ./web:/usr/share/nginx/html  # Mount the 'web' directory to the container
+    depends_on:
+      - db  # Ensure db is started before web
+  
   db:
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=mywebpassword
       - MYSQL_DATABASE=mydb
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql  # Volume for persistent database storage
 
 volumes:
-  db_data:
+  db_data:  # Named volume to persist MySQL data
