@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    build: ./web
+    ports:
+      - "80:80"
+    volumes:
+      - ./web:/usr/share/nginx/html
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=mywebpassword
+      - MYSQL_DATABASE=mydb
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
