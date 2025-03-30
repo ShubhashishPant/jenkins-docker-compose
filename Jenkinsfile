@@ -22,5 +22,16 @@ pipeline {
                 bat 'docker compose ps'
             }
         }
+        stage("Check Response"){
+            steps {
+                bat 'curl http://localhost'
+            }
+        }
+        post {
+            always {
+                bat 'docker compose down --remove-orphans -v'
+                bat 'docker compose ps'
+            }
+        }
     }
 }
